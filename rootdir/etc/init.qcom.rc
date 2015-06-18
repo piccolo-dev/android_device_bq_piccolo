@@ -269,6 +269,9 @@ service sensord /system/bin/sensord
     class main
     user root
 
+on property:init.svc.zygote=restarting
+    restart sensord
+
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
