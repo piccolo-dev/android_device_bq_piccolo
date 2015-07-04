@@ -378,8 +378,11 @@ service ril-daemon2 /system/bin/rild -c 2
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-on property:persist.radio.multisim.config=dsds
-    start ril-daemon2
+service rild2-wrapper /system/bin/sh /init.qcom.ril.sh
+    class late_start
+    user root
+    group root
+    oneshot
 
 service msm_irqbalance /system/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
     class core
