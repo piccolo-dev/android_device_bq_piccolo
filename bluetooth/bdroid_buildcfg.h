@@ -28,4 +28,5 @@
 // skips conn update at conn completion
 #define BTA_BLE_SKIP_CONN_UPD  FALSE
 #define BLE_PERIPHERAL_ADV_NAME  FALSE
-#endif 
+#define BT_CLEAN_TURN_ON_DISABLED 1
+#endif
