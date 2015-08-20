@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<StorageList xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Internal emulated storage -->
+    <storage android:storageDescription="@string/storage_internal"
+	android:mountPoint="/storage/sdcard0"
+	android:primary="true"
+	android:emulated="true"
+	android:mtpReserve="100" />
+    
+    <!-- External SD card -->
+    <storage android:storageDescription="@string/storage_sd_card"
+	android:mountPoint="/storage/sdcard1"
+	android:primary="false"
+	android:removable="true" />
+
+    <!-- USB OTG drive -->
+    <storage android:storageDescription="@string/storage_usb"
+	android:mountPoint="/storage/usbdisk"
+	android:primary="false"
+	android:removable="true" />
+
+</StorageList>

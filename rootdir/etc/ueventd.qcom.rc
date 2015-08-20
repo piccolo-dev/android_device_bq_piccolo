@@ -1,0 +1,182 @@
+# Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+# The DIAG device node is not world writable/readable.
+/dev/diag                 0660   system     qcom_diag
+
+/dev/kgsl-3d0             0666   system     system
+/dev/ion                  0664   system     system
+/dev/rtc0                 0600   system     system
+/dev/smd0                 0660   system     system
+/dev/smd5                 0660   system     system
+/dev/smd6                 0660   system     system
+/dev/smd7                 0660   bluetooth  bluetooth
+/dev/ccid_bridge          0660   system     system
+
+# Permissions for CSVT
+/dev/smd11                0660   radio      radio
+
+/dev/smdcntl0             0640   radio      radio
+/dev/smdcntl1             0640   radio      radio
+/dev/smdcntl2             0640   radio      radio
+/dev/smdcntl3             0640   radio      radio
+/dev/smdcntl4             0640   radio      radio
+/dev/smdcntl5             0640   radio      radio
+/dev/smdcntl6             0640   radio      radio
+/dev/smdcntl7             0640   radio      radio
+/dev/smdcntl8             0640   radio      radio
+/dev/smdcnt_rev0          0640   radio      radio
+/dev/smdcnt_rev1          0640   radio      radio
+/dev/smdcnt_rev2          0640   radio      radio
+/dev/smdcnt_rev3          0640   radio      radio
+/dev/smdcnt_rev4          0640   radio      radio
+/dev/smdcnt_rev5          0640   radio      radio
+/dev/smdcnt_rev6          0640   radio      radio
+/dev/smdcnt_rev7          0640   radio      radio
+/dev/smdcnt_rev8          0640   radio      radio
+/dev/video*               0660   system     camera
+/dev/media*               0660   system     camera
+/dev/v4l-subdev*          0660   system     camera
+/dev/qseecom              0660   system     drmrpc
+/dev/jpeg0                0660   system     camera
+/dev/hw_random            0600   root       root
+
+# Permissions for audio
+/dev/msm_qcelp            0660   system     audio
+/dev/msm_evrc             0660   system     audio
+/dev/msm_wma              0660   system     audio
+/dev/msm_wmapro           0660   system     audio
+/dev/msm_amrnb            0660   system     audio
+/dev/msm_amrwb            0660   system     audio
+/dev/msm_amrwbplus        0660   system     audio
+/dev/msm_aac              0660   system     audio
+/dev/msm_multi_aac        0660   system     audio
+/dev/msm_aac_in           0660   system     audio
+/dev/msm_qcelp_in         0660   system     audio
+/dev/msm_evrc_in          0660   system     audio
+/dev/msm_amrnb_in         0640   system     audio
+/dev/msm_audio_cal        0660   system     audio
+/dev/msm_rtac             0660   system     audio
+/dev/radio0               0660   system     radio
+/dev/smd3                 0660   bluetooth  net_bt_stack
+/dev/smd2                 0660   bluetooth  net_bt_stack
+/dev/ttyGS0               0660   system     system
+/dev/i2c-5                0660   media      media
+/dev/voice_svc            0660   system     audio
+
+/sys/devices/virtual/smdpkt/smdcntl*       open_timeout   0664 radio radio
+
+# Sensors
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            enable         0660    input    system
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            poll_delay     0660    input    system
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            enable_wakeup  0660    input    system
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            max_latency    0660    input    system
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            flush          0660    input    system
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            calibrate      0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            enable         0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            poll_delay     0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            enable_wakeup  0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            max_latency    0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            flush          0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            calibrate      0660    input    system
+/sys/devices/virtual/input/input*                   poll           0660    input    system
+/sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
+
+# BST
+/sys/devices/virtual/input/input* range                       0660    input      system
+/sys/devices/virtual/input/input* bandwidth                   0660    input      system
+/sys/devices/virtual/input/input* op_mode                     0660    input      system
+/sys/devices/virtual/input/input* delay                       0660    input      system
+/sys/devices/virtual/input/input* SleepDur                    0660    input      system
+/sys/devices/virtual/input/input* fast_calibration_x          0660    input      system
+/sys/devices/virtual/input/input* fast_calibration_y          0660    input      system
+/sys/devices/virtual/input/input* fast_calibration_z          0660    input      system
+/sys/devices/virtual/input/input* fifo_overrun                0660    input      system
+/sys/devices/virtual/input/input* fifo_data_frame             0660    input      system
+/sys/devices/virtual/input/input* fifo_mode                   0660    input      system
+/sys/devices/virtual/input/input* fifo_trig                   0660    input      system
+/sys/devices/virtual/input/input* fifo_framecount             0660    input      system
+/sys/devices/virtual/input/input* fifo_data_sel               0660    input      system
+/sys/devices/virtual/input/input* reg                         0660    input      system
+/sys/devices/virtual/input/input* offset_x                    0660    input      system
+/sys/devices/virtual/input/input* offset_y                    0660    input      system
+/sys/devices/virtual/input/input* offset_z                    0660    input      system
+/sys/devices/virtual/input/input* enable_int                  0660    input      system
+/sys/devices/virtual/input/input* int_mode                    0660    input      system
+/sys/devices/virtual/input/input* slope_duration              0660    input      system
+/sys/devices/virtual/input/input* slope_threshold             0660    input      system
+/sys/devices/virtual/input/input* slope_no_mot_duration       0660    input      system
+/sys/devices/virtual/input/input* slope_no_mot_threshold      0660    input      system
+/sys/devices/virtual/input/input* high_g_duration             0660    input      system
+/sys/devices/virtual/input/input* high_g_threshold            0660    input      system
+/sys/devices/virtual/input/input* low_g_duration              0660    input      system
+/sys/devices/virtual/input/input* low_g_threshold             0660    input      system
+/sys/devices/virtual/input/input* tap_duration                0660    input      system
+/sys/devices/virtual/input/input* tap_threshold               0660    input      system
+/sys/devices/virtual/input/input* tap_quiet                   0660    input      system
+/sys/devices/virtual/input/input* tap_shock                   0660    input      system
+/sys/devices/virtual/input/input* tap_samp                    0660    input      system
+/sys/devices/virtual/input/input* orient_mode                 0660    input      system
+/sys/devices/virtual/input/input* orient_blocking             0660    input      system
+/sys/devices/virtual/input/input* orient_hyst                 0660    input      system
+/sys/devices/virtual/input/input* orient_theta                0660    input      system
+/sys/devices/virtual/input/input* flat_theta                  0660    input      system
+/sys/devices/virtual/input/input* flat_hold_time              0660    input      system
+/sys/devices/virtual/input/input* selftest                    0660    input      system
+/sys/devices/virtual/input/input* softreset                   0660    input      system
+/sys/devices/virtual/input/input* en_sig_motion               0660    input      system
+/sys/devices/virtual/input/input* tap_time_period             0660    input      system
+/sys/devices/virtual/input/input* en_double_tap               0660    input      system
+
+/sys/devices/virtual/input/input* fastoffset_en               0660    input      system
+/sys/devices/virtual/input/input* slowoffset_en               0660    input      system
+/sys/devices/virtual/input/input* sleepdur                    0660    input      system
+/sys/devices/virtual/input/input* autosleepdur                0660    input      system
+/sys/devices/virtual/input/input* fifo_tag                    0660    input      system
+
+/sys/devices/virtual/input/input* odr                         0660    input      system
+/sys/devices/virtual/input/input* rept_xy                     0660    input      system
+/sys/devices/virtual/input/input* rept_z                      0660    input      system
+/sys/devices/virtual/input/input* test                        0660    input      system
+
+# NFC
+/dev/bcm2079x             0660   nfc        nfc
+
+# Wlan
+/dev/wcnss_wlan           0660   system     system
+/dev/wcnss_ctrl           0660   system     system
+
+# UIO devices
+/dev/uio0                 0660   system     system
+/dev/uio1                 0660   system     system
+/dev/uio2                 0660   system     system
+
+# SSR devices
+/dev/subsys_*             0640   system     system
+
+# Ramdump devices
+/dev/ramdump*             0640   system     system

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="preferences_interface_drawer_type_default" product="default">1</integer>
+</resources>
