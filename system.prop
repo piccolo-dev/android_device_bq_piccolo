@@ -10,6 +10,7 @@ audio.offload.buffer.size.kb=64
 audio.offload.min.duration.secs=30
 audio.offload.gapless.enabled=true
 audio.offload.video=true
+audio.deep_buffer.media=true
 use.voice.path.for.pcm.voip=true
 voice.playback.conc.disabled=true
 voice.record.conc.disabled=true
