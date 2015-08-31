@@ -126,29 +126,65 @@ set_light_backlight(struct light_device_t* dev,
     return err;
 }
 
+void reset_leds(void)
+{
+    write_int(RED_LED_FILE, 0);
+    write_int(GREEN_LED_FILE, 0);
+    write_int(BLUE_LED_FILE, 0);
+    write_int(RED_BLINK_FILE, 0);
+    write_int(GREEN_BLINK_FILE, 0);
+    write_int(BLUE_BLINK_FILE, 0);
+}
+
+static int
+set_battery_light_locked(struct light_device_t *dev,
+        struct light_state_t const* state)
+{
+    int red, green, blue;
+    unsigned int colorRGB;
+
+    reset_leds();
+
+    colorRGB = state->color;
+
+    red = (colorRGB >> 16) & 0x00FF;
+    green = (colorRGB >> 8) & 0x00FF;
+    blue = colorRGB & 0x00FF;
+
+    write_int(RED_LED_FILE, red);
+    write_int(GREEN_LED_FILE, green);
+    write_int(BLUE_LED_FILE, blue);
+
+    return 0;
+}
+
 static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int red, green, blue;
     int blink;
-    int onMS, offMS;
     unsigned int colorRGB;
 
     if(!dev) {
         return -1;
     }
 
-    switch (state->flashMode) {
-        case LIGHT_FLASH_TIMED:
-            onMS = state->flashOnMS;
-            offMS = state->flashOffMS;
-            break;
-        case LIGHT_FLASH_NONE:
-        default:
-            onMS = 0;
-            offMS = 0;
-            break;
+    reset_leds();
+
+    if (state == NULL) {
+        return 0;
+    }
+
+/*
+ Something wrong with light_state_t, becaulse state->flashMode is definetely not flashmode
+ looks state->flasmode is device locked or not & FlashOnMS is 1 if always on & 500/1000/etc when flash mode is set
+ */
+
+    if (state->flashOnMS  != 1) {
+        blink = 1;
+    } else {
+        blink = 0;
     }
 
     colorRGB = state->color;
@@ -162,37 +198,38 @@ set_speaker_light_locked(struct light_device_t* dev,
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
 
-    if (onMS > 0 && offMS > 0) {
-        blink = 1;
-    } else {
-        blink = 0;
-    }
-
-    write_int(RED_LED_FILE, red);
-    write_int(GREEN_LED_FILE, green);
-    write_int(BLUE_LED_FILE, blue);
-
     if (blink) {
-        if (red)
+        if (red) {
+            write_int(RED_LED_FILE, 0);
             write_int(RED_BLINK_FILE, blink);
-        if (green)
+        }
+        if (green) {
+            write_int(GREEN_LED_FILE, 0);
             write_int(GREEN_BLINK_FILE, blink);
-        if (blue)
+        }
+        if (blue) {
+            write_int(BLUE_LED_FILE, 0);
             write_int(BLUE_BLINK_FILE, blink);
+       }
+    } else {
+        write_int(RED_LED_FILE, red);
+        write_int(GREEN_LED_FILE, green);
+        write_int(BLUE_LED_FILE, blue);
     }
 
     return 0;
 }
 
 static void
-handle_speaker_battery_locked(struct light_device_t* dev)
+handle_speaker_light_locked(struct light_device_t *dev)
 {
+    set_speaker_light_locked(dev, NULL);
     if (is_lit(&g_attention)) {
         set_speaker_light_locked(dev, &g_attention);
     } else if (is_lit(&g_notification)) {
         set_speaker_light_locked(dev, &g_notification);
     } else {
-        set_speaker_light_locked(dev, &g_battery);
+        set_battery_light_locked(dev, &g_battery);
     }
 }
 
@@ -202,12 +239,7 @@ set_light_attention(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_attention = *state;
-    // PowerManagerService::setAttentionLightInternal turns off the attention
-    // light by setting flashOnMS = flashOffMS = 0
-    if (g_attention.flashOnMS == 0 && g_attention.flashOffMS == 0) {
-        g_attention.color = 0;
-    }
-    handle_speaker_battery_locked(dev);
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -218,7 +250,7 @@ set_light_notifications(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_notification = *state;
-    handle_speaker_battery_locked(dev);
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -229,7 +261,7 @@ set_light_battery(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_battery = *state;
-    handle_speaker_battery_locked(dev);
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
