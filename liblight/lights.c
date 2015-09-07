@@ -137,33 +137,12 @@ void reset_leds(void)
 }
 
 static int
-set_battery_light_locked(struct light_device_t *dev,
-        struct light_state_t const* state)
-{
-    int red, green, blue;
-    unsigned int colorRGB;
-
-    reset_leds();
-
-    colorRGB = state->color;
-
-    red = (colorRGB >> 16) & 0x00FF;
-    green = (colorRGB >> 8) & 0x00FF;
-    blue = colorRGB & 0x00FF;
-
-    write_int(RED_LED_FILE, red);
-    write_int(GREEN_LED_FILE, green);
-    write_int(BLUE_LED_FILE, blue);
-
-    return 0;
-}
-
-static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int red, green, blue;
     int blink;
+    int onMS, offMS;
     unsigned int colorRGB;
 
     if(!dev) {
@@ -176,15 +155,17 @@ set_speaker_light_locked(struct light_device_t* dev,
         return 0;
     }
 
-/*
- Something wrong with light_state_t, becaulse state->flashMode is definetely not flashmode
- looks state->flasmode is device locked or not & FlashOnMS is 1 if always on & 500/1000/etc when flash mode is set
- */
-
-    if (state->flashOnMS  != 1) {
-        blink = 1;
-    } else {
-        blink = 0;
+    switch (state->flashMode) {
+        case LIGHT_FLASH_TIMED:
+            onMS = state->flashOnMS;
+            offMS = state->flashOffMS;
+            break;
+ 
+        case LIGHT_FLASH_NONE:
+        default:
+            onMS = 0;
+            offMS = 0;
+            break;
     }
 
     colorRGB = state->color;
@@ -198,18 +179,20 @@ set_speaker_light_locked(struct light_device_t* dev,
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
 
+    blink = onMS > 0 && offMS > 0;
+
     if (blink) {
         if (red) {
             write_int(RED_LED_FILE, 0);
-            write_int(RED_BLINK_FILE, blink);
+            write_int(RED_BLINK_FILE, onMS);
         }
         if (green) {
             write_int(GREEN_LED_FILE, 0);
-            write_int(GREEN_BLINK_FILE, blink);
+            write_int(GREEN_BLINK_FILE, onMS);
         }
         if (blue) {
             write_int(BLUE_LED_FILE, 0);
-            write_int(BLUE_BLINK_FILE, blink);
+            write_int(BLUE_BLINK_FILE, onMS);
        }
     } else {
         write_int(RED_LED_FILE, red);
@@ -229,7 +212,7 @@ handle_speaker_light_locked(struct light_device_t *dev)
     } else if (is_lit(&g_notification)) {
         set_speaker_light_locked(dev, &g_notification);
     } else {
-        set_battery_light_locked(dev, &g_battery);
+        set_speaker_light_locked(dev, &g_battery);
     }
 }
 
