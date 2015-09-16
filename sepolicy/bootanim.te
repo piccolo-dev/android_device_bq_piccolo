@@ -1,3 +1,2 @@
-allow bootanim mpctl_socket:dir search;
 allow bootanim mpctl_socket:sock_file write;
 allow bootanim perfd:unix_stream_socket connectto;

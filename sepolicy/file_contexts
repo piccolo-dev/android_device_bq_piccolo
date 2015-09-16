@@ -2,7 +2,6 @@
 /data/cam_socket([0-9])+                      u:object_r:camera_socket:s0
 
 # CMHW
-/sys/devices/virtual/graphics/fb0/rgb         u:object_r:display_sysfs:s0
 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-004a/en_gesture  u:object_r:touchpanel_sysfs:s0
 
 # NFC
