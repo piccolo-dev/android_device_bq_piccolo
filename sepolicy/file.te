@@ -1,4 +1,5 @@
 # CMHW
 type touchpanel_sysfs, fs_type, sysfs_type;
+type vibeamp_sysfs, fs_type, sysfs_type;
 
 type leds_device, file_type, dev_type;
