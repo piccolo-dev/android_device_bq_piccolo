@@ -578,7 +578,7 @@ on property:sys.perf.profile=0
     write /sys/module/msm_thermal/core_control/enabled 1
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor powersave
     write /sys/class/devfreq/qcom,cpubw.62/governor powersave
-    write /sys/class/devfreq/qcom,gpubw.59/governor powersave
+    write /sys/class/devfreq/qcom,gpubw.39/governor powersave
 
 # Balanced
 on property:sys.perf.profile=1
@@ -599,11 +599,10 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor ondemand
     write /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor ondemand
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
-    write /sys/class/devfreq/qcom,mincpubw.63/governor cpufreq
     write /sys/class/devfreq/qcom,cpubw.62/governor bw_hwmon
     write /sys/class/devfreq/qcom,cpubw.62/bw_hwmon/io_percent 20
-    write /sys/class/devfreq/qcom,gpubw.59/governor bw_hwmon
-    write /sys/class/devfreq/qcom,gpubw.59/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/qcom,gpubw.39/governor bw_hwmon
+    write /sys/class/devfreq/qcom,gpubw.39/bw_hwmon/io_percent 40
     start perfd
 
 # Performance
@@ -626,4 +625,4 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor performance
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor performance
     write /sys/class/devfreq/qcom,cpubw.62/governor performance
-    write /sys/class/devfreq/qcom,gpubw.59/governor performance
+    write /sys/class/devfreq/qcom,gpubw.39/governor performance
