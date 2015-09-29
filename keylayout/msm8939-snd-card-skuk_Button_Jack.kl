@@ -1,0 +1,10 @@
+key 256   HEADSETHOOK
+key 257   HEADSETHOOK
+key 258   VOLUME_UP
+key 259   HEADSETHOOK
+key 260   HEADSETHOOK
+key 261   VOLUME_DOWN
+
+# add by Wenke Ma for hall switch key code
+key 546   HALL_OPEN
+key 547   HALL_CLOSE
