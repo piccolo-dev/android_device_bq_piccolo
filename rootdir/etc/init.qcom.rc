@@ -443,6 +443,7 @@ service wcnss-service /system/bin/wcnss_service
 
 service charger /charger
     class charger
+    seclabel u:r:healthd:s0
 
 service adjust_settings /system/bin/adjust_settings
     class main
