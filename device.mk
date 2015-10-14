@@ -131,7 +131,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/atmel_mxt_ts_T100_touchscreen.kl:system/usr/keylayout/atmel_mxt_ts_T100_touchscreen.kl \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/keylayout/msm8939-snd-card-skuk_Button_Jack.kl:system/usr/keylayout/msm8939-snd-card-skuk_Button_Jack.kl
+    $(LOCAL_PATH)/keylayout/msm8939-snd-card-skuk_Button_Jack.kl:system/usr/keylayout/msm8939-snd-card-skuk_Button_Jack.kl \
+    $(LOCAL_PATH)/keylayout/msm8939-snd-card-skuk_Button_Jack.kl:system/usr/keylayout/Headset.kl
 
 # Keystore
 PRODUCT_PACKAGES += \
