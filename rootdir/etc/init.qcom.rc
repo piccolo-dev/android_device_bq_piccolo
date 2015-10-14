@@ -476,7 +476,7 @@ service adjust_settings /system/bin/adjust_settings
 on property:sys.boot_completed=1
     start adjust_settings
 
-service set_sn /system/bin/adjust_settings setsn
+service set_sn /system/bin/adjust_serialno setsn
     disabled
     oneshot
 
