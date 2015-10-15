@@ -24,9 +24,7 @@ persist.cne.feature=1
 # Display
 debug.sf.hw=1
 debug.egl.hw=1
-debug.composition.type=c2d
 persist.hwc.mdpcomp.enable=true
-debug.mdpcomp.idletime=600
 debug.mdpcomp.logs=0
 dev.pm.dyn_samplingrate=1
 debug.enable.sglscale=1
