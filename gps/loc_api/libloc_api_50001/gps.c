@@ -28,7 +28,7 @@
  */
 
 #include <hardware/gps.h>
-
+#include <string.h>
 #include <stdlib.h>
 
 extern const GpsInterface* get_gps_interface();
