@@ -1,0 +1,5 @@
+allow init self:process execmem;
+allow init self:tcp_socket create;
+allow init self:tcp_socket setopt;
+allow init self:tcp_socket { bind listen };
+allow init node:tcp_socket node_bind;
