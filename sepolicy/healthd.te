@@ -1,3 +1,0 @@
-allow healthd device:dir { open read };
-allow healthd alarm_device:chr_file write;
-allow healthd rtc_device:chr_file { ioctl open read write };
