@@ -20,6 +20,15 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds.  Do not translate. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Set this to true to enable the platform's auto-power-save modes like doze and
+         app standby.  These are not enabled by default because they require a standard
+         cloud-to-device messaging service for apps to interact correctly with the modes
+         (such as to be able to deliver an instant message to the device even when it is
+         dozing).  This should be enabled if you have such services and expect apps to
+         correctly use them when installed on your device.  Otherwise, keep this disabled
+         so that applications can still use their own mechanisms. -->
+    <bool name="config_enableAutoPowerModes">true</bool>
     
     <!-- This string array should be overridden by the device to present a list of network
          attributes.  This is used by the connectivity manager to decide which networks can coexist
@@ -29,6 +38,7 @@
     <!-- the 5th element "resore-time" indicates the number of milliseconds to delay
          before automatically restore the default connection.  Set -1 if the connection
          does not require auto-restore. -->
+    <!-- the 6th element indicates boot-time dependency-met value. -->
     <string-array translatable="false" name="networkAttributes">
         <item>"wifi,1,1,1,-1,true"</item>
         <item>"mobile,0,0,0,-1,true"</item>
@@ -87,9 +97,6 @@
         <item>5</item>
         <item>7</item>
     </integer-array>
-    
-    <!-- Boolean indicating whether Softap requires reloading AP firmware -->
-    <bool name="config_wifiApFirmwareReload">false</bool>
 
     <!-- Boolean indicating whether the wifi chipset supports background scanning mechanism.
          This mechanism allows the host to remain in suspend state and the dongle to actively
@@ -174,7 +181,7 @@
             4 - Voice Search
             5 - In-app Search
          This needs to match the constants in
-         policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
+         services/core/java/com/android/server/policy/policy/impl/PhoneWindowManager.java
     -->
     <integer name="config_longPressOnAppSwitchBehavior">1</integer>
 
@@ -306,7 +313,7 @@
          Refer to power.h for details.
     -->
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
-    
+
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
     
@@ -324,11 +331,12 @@
         <item>"umts:4094,87380,1220608,4096,16384,1220608"</item>
         <item>"hspa:4094,87380,1220608,4096,16384,1220608"</item>
         <item>"hsupa:4094,87380,1220608,4096,16384,1220608"</item>
-        <item>"hsdpa:4094,87380,1220608,4096,16384,1220608"</item>
+        <item>"hsdpa:4094,87380,2441216,4096,16384,2441216"</item>
         <item>"hspap:4094,87380,1220608,4096,16384,1220608"</item>
         <item>"edge:4093,26280,35040,4096,16384,35040"</item>
         <item>"gprs:4092,8760,11680,4096,8760,11680"</item>
-        <item>"evdo:4094,87380,524288,4096,16384,262144"</item>
+        <item>"evdo:4094,87380,1048576,4096,16384,262144"</item>
+        <item>"ehrpd:4094,87380,1048576,4096,16384,262144"</item>
     </string-array>
     
     <!-- Whether WiFi display is supported by this device.
@@ -375,9 +383,6 @@
     <!-- Flag specifying whether VoLTE availability is based on provisioning -->
     <bool name="config_carrier_volte_provisioned">true</bool>
 
-    <!-- Flag specifying whether VoLTE TTY is supported -->
-    <bool name="config_carrier_volte_tty_supported">true</bool>
-
     <!-- Flag specifying whether VT is available on device -->
     <bool name="config_device_vt_available">true</bool>
     
@@ -385,27 +390,11 @@
          carrier provisioning. If false: hard disabled. If true: then depends on carrier
          provisioning, availability etc -->
     <bool name="config_carrier_vt_available">true</bool>
-    
-    <!-- Configuartion to support SIM refresh in STK command for dual mode card.-->
-    <bool name="config_sim_refresh_for_dual_mode_card">true</bool>
-    
+
+    <!-- Whether device supports double tap to wake -->
+    <bool name="config_supportDoubleTapWake">true</bool>
+
     <!-- monitor locale change -->
     <bool name="config_monitor_locale_change">true</bool>
-    
-    <!-- Configuration to sending and receiving Mms when mobile data is disable.-->
-    <bool name="config_enable_mms_with_mobile_data_off">true</bool>
-    
-    <!-- Configuration to enable non-default PDP during IWLAN -->
-    <bool name="config_feature_iwlan_enabled">true</bool>
-
-    <!-- Defines the system property to set for performance profile xe: sys.cpu.modes. Leave it
-         blank if the device do not support performance profiles -->
-    <string name="config_perf_profile_prop" translatable="false">sys.perf.profile</string>
-
-    <!-- When config_perf_profile_prop is defined, this value MUST be the index of
-         one of the listes values in frameworks/base/core/res/res/values/cm_arrays.xml
-         for "perf_profile_values" array. Leave it blank if the device do not support
-         performance profiles  -->
-    <string name="config_perf_profile_default_entry" translatable="false">1</string>
 
 </resources>
