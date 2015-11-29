@@ -80,6 +80,7 @@ persist.radio.mode_pref_nv10=0
 persist.radio.proc_nw_scan=1
 persist.radio.disable_flexmap=1
 ro.telephony.call_ring.multiple=false
+ro.telephony.ril.config=simactivation
 
 # Trim
 ro.sys.fw.use_trim_settings=true
