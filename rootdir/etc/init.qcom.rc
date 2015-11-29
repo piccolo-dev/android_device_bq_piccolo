@@ -390,12 +390,12 @@ service qseecomd /system/bin/qseecomd
     user root
     group root
 
-service perfd /system/bin/perfd
+service perfd /system/vendor/bin/perfd
    class main
    user root
    disabled
 
-service thermal-engine /system/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
     class main
     user root
     socket thermal-send-client stream 0666 system system
@@ -413,7 +413,7 @@ service audiod /system/bin/audiod
    user system
    group system
 
-service ppd /system/bin/mm-pp-daemon
+service ppd /system/vendor/bin/mm-pp-daemon
     class late_start
     disabled
     user system
