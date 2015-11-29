@@ -94,3 +94,6 @@ cm.updater.uri=http://ota.randomdroids.com/api
 
 # USB
 ro.sys.usb.default.config=diag,serial_smd,serial_tty,mass_storage,adb
+
+# WiFi
+ro.disableWifiApFirmwareReload=true
