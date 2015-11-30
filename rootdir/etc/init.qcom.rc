@@ -42,7 +42,7 @@ on init
     symlink /sdcard /storage/sdcard0
 
     # Symbols required for blobs
-    export LD_PRELOAD "/system/lib/libboringssl-compat.so"
+    export LD_SHIM_LIBS "/system/bin/mm-qcamera-daemon|libshim_camera.so:/system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so"
 
 on fs
     mount_all fstab.qcom
