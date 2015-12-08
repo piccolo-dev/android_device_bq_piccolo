@@ -69,6 +69,8 @@ on boot
     chown system camera /sys/class/leds/torch-light0/brightness
     chmod 0660 /sys/class/leds/torch-light0/brightness
 
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
@@ -222,12 +224,19 @@ service rfs_access /system/bin/rfs_access
    user root
    group system net_raw
 
+service config_bt_addr /system/bin/btnvtool -O
+    class core
+    user bluetooth
+    group bluetooth radio
+    oneshot
+
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
     user root
     oneshot
 
 on property:vold.decrypt=trigger_restart_framework
+    start config_bt_addr
     start config_bluetooth
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
