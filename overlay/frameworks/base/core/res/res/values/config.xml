@@ -399,7 +399,4 @@
     <!-- Whether device supports double tap to wake -->
     <bool name="config_supportDoubleTapWake">true</bool>
 
-    <!-- monitor locale change -->
-    <bool name="config_monitor_locale_change">true</bool>
-
 </resources>
