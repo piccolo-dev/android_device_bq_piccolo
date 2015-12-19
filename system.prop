@@ -17,6 +17,28 @@ voice.voip.conc.disabled=true
 ro.fm.transmitter=false
 persist.sys.fm=qn8035
 
+# Camera
+morpho.hdr.enable=1
+morpho.hdr.nthreads=8
+morpho.hdr.dumpframe=0
+morpho.hdr.ghostdsl=4
+morpho.hdr.reliablerrt=85
+morpho.hdr.ghostrt=60
+morpho.hdr.failsoftms=1
+morpho.hdr.ghostrsl=6
+morpho.hdr.fmcolorcontrast=8
+morpho.hdr.fmcolorsaturation=2
+morpho.hdr.ev0=0
+morpho.hdr.ev1=-9
+morpho.hdr.ev2=9
+morpho.denoiser.enable=0
+morpho.denoiser.nthreads=4
+morpho.denoiser.lumanrl=3
+morpho.denoiser.chromanrl=3
+morpho.denoiser.spikenoise=1
+morpho.denoiser.umaskthreshold=0
+morpho.denoiser.umaskweight=256
+
 # CNE
 persist.cne.feature=1
 
