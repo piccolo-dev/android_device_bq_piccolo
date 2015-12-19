@@ -217,6 +217,10 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     ueventd.qcom.rc
 
+# Soft magnetic calibration
+PRODUCT_COPY_FILES+= \
+     $(LOCAL_PATH)/configs/softiron_matrix.txt:system/etc/sensor/softiron_matrix.txt
+
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
