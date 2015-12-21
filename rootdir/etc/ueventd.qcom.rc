@@ -91,10 +91,47 @@
 /sys/devices/virtual/smdpkt/smdcntl*       open_timeout   0664 radio radio
 
 # bmi160
+/sys/devices/virtual/input/input* acc_fast_calibration_x    0660    system      input
+/sys/devices/virtual/input/input* acc_fast_calibration_y    0660    system      input
+/sys/devices/virtual/input/input* acc_fast_calibration_z    0660    system      input
+/sys/devices/virtual/input/input* acc_odr                   0660    system      input
+/sys/devices/virtual/input/input* acc_offset_x              0660    system      input
+/sys/devices/virtual/input/input* acc_offset_y              0660    system      input
+/sys/devices/virtual/input/input* acc_offset_z              0660    system      input
+/sys/devices/virtual/input/input* acc_op_mode               0660    system      input
+/sys/devices/virtual/input/input* acc_range                 0660    system      input
+/sys/devices/virtual/input/input* acc_value                 0660    system      input
+/sys/devices/virtual/input/input* bmi_value                 0660    system      input
 /sys/devices/virtual/input/input* delay                     0660    system      input
 /sys/devices/virtual/input/input* enable                    0660    system      input
+/sys/devices/virtual/input/input* fifo_bytecount            0660    system      input
+/sys/devices/virtual/input/input* fifo_data_frame           0660    system      input
+/sys/devices/virtual/input/input* fifo_data_sel             0660    system      input
+/sys/devices/virtual/input/input* fifo_flush                0660    system      input
+/sys/devices/virtual/input/input* fifo_full_stop            0660    system      input
+/sys/devices/virtual/input/input* fifo_header_en            0660    system      input
+/sys/devices/virtual/input/input* fifo_int_tag_en           0660    system      input
+/sys/devices/virtual/input/input* fifo_time_en              0660    system      input
+/sys/devices/virtual/input/input* fifo_watermark            0660    system      input
+/sys/devices/virtual/input/input* gyro_fast_calibration_en  0660    system      input
+/sys/devices/virtual/input/input* gyro_odr                  0660    system      input
+/sys/devices/virtual/input/input* gyro_offset_x             0660    system      input
+/sys/devices/virtual/input/input* gyro_offset_y             0660    system      input
+/sys/devices/virtual/input/input* gyro_offset_z             0660    system      input
+/sys/devices/virtual/input/input* gyro_op_mode              0660    system      input
+/sys/devices/virtual/input/input* gyro_range                0660    system      input
+/sys/devices/virtual/input/input* gyro_value                0660    system      input
 /sys/devices/virtual/input/input* name                      0660    system      input
 /sys/devices/virtual/input/input* place                     0660    system      input
+/sys/devices/virtual/input/input* register                  0660    system      input
+/sys/devices/virtual/input/input* selftest                  0660    system      input
+/sys/devices/virtual/input/input* sensor_time               0660    system      input
+/sys/devices/virtual/input/input* stc_clc                   0660    system      input
+/sys/devices/virtual/input/input* stc_enable                0660    system      input
+/sys/devices/virtual/input/input* stc_mode                  0660    system      input
+/sys/devices/virtual/input/input* stc_value                 0660    system      input
+/sys/devices/virtual/input/input* temperature               0660    system      input
+/sys/devices/virtual/input/input* test                      0660    system      input
 
 # akm09911
 /sys/devices/virtual/input/input* value                     0660    system      input
