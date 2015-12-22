@@ -57,6 +57,9 @@ ro.sys.fw.bservice_enable=true
 ro.sys.fw.bservice_limit=5
 ro.sys.fw.bservice_age=5000
 
+# Factory reset protection
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+
 # GPS
 ro.gps.agps_provider=1
 ro.qc.sdk.izat.premium.enabled=0

@@ -162,3 +162,6 @@
 
 # Ramdump devices
 /dev/ramdump*             0640   system     system
+
+# FRP
+/dev/block/bootdevice/by-name/config                       0600    system      system
