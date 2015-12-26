@@ -157,6 +157,11 @@ on post-fs-data
     # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
+    # Create BST sensord file
+    mkdir /data/misc/sensor 0777 system system
+    chown system system /data/misc/sensor
+    chmod 0777 /data/misc/sensor
+
     # Create folder for mm-qcamera-daemon
     mkdir /data/camera 0770 media camera
     mkdir /data/misc/camera 0770 camera camera
@@ -246,6 +251,7 @@ service netmgrd /system/bin/netmgrd
 service sensord /system/bin/sensord
     class main
     user root
+    group system
 
 on property:init.svc.zygote=restarting
     restart sensord
