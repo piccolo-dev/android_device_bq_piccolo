@@ -39,6 +39,7 @@ morpho.denoiser.chromanrl=3
 morpho.denoiser.spikenoise=1
 morpho.denoiser.umaskthreshold=0
 morpho.denoiser.umaskweight=256
+persist.camera.cpp.duplication=false
 
 # CNE
 persist.cne.feature=1
