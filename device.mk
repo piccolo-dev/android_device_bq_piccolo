@@ -224,9 +224,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     ueventd.qcom.rc
 
-PRODUCT_PACKAGES += \
-    init.qcom.ril.sh
-
 # Soft magnetic calibration
 PRODUCT_COPY_FILES+= \
      $(LOCAL_PATH)/configs/softiron_matrix.txt:system/etc/sensor/softiron_matrix.txt
