@@ -65,6 +65,7 @@ PRODUCT_PACKAGES += \
 # Connectivity
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
+    librmnetctl \
     libxml2
 
 # CRDA
