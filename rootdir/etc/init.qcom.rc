@@ -214,6 +214,10 @@ on post-fs-data
     chown root system /sys/devices/soc.0/78b9000.i2c/i2c-5/5-004a/en_gesture
     chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-004a/en_gesture
 
+    # Disable Keys
+    chown root system /sys/devices/soc.0/78b9000.i2c/i2c-5/5-004a/disable_keys
+    chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-004a/disable_keys
+
     # Vibrator
     chown system system /sys/class/timed_output/vibrator/vtg_level
     chmod 0660 /sys/class/timed_output/vibrator/vtg_level
