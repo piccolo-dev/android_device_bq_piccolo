@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
  * Copyright (C) 2014 The  Linux Foundation. All rights reserved.
+ * Copyright (C) 2015 BQ
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +37,9 @@
 
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
-static struct light_state_t g_attention;
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
+static struct light_state_t g_attention;
 
 char const*const RED_LED_FILE
         = "/sys/class/leds/red/brightness";
@@ -97,6 +98,28 @@ write_int(char const* path, int value)
 }
 
 static int
+write_int_on_off_time(char const* path, int value, int on, int off)
+{
+    int fd;
+    static int already_warned = 0;
+
+    fd = open(path, O_RDWR);
+    if (fd >= 0) {
+        char buffer[40];
+        int bytes = snprintf(buffer, sizeof(buffer), "%d %d %d\n", value, on, off);
+        ssize_t amt = write(fd, buffer, (size_t)bytes);
+        close(fd);
+        return amt == -1 ? -errno : 0;
+    } else {
+        if (already_warned == 0) {
+            ALOGE("write_int failed to open %s\n", path);
+            already_warned = 1;
+        }
+        return -errno;
+    }
+}
+
+static int
 is_lit(struct light_state_t const* state)
 {
     return state->color & 0x00ffffff;
@@ -126,16 +149,6 @@ set_light_backlight(struct light_device_t* dev,
     return err;
 }
 
-void reset_leds(void)
-{
-    write_int(RED_LED_FILE, 0);
-    write_int(GREEN_LED_FILE, 0);
-    write_int(BLUE_LED_FILE, 0);
-    write_int(RED_BLINK_FILE, 0);
-    write_int(GREEN_BLINK_FILE, 0);
-    write_int(BLUE_BLINK_FILE, 0);
-}
-
 static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
@@ -149,7 +162,9 @@ set_speaker_light_locked(struct light_device_t* dev,
         return -1;
     }
 
-    reset_leds();
+    write_int(RED_LED_FILE, 0);
+    write_int(GREEN_LED_FILE, 0);
+    write_int(BLUE_LED_FILE, 0);
 
     if (state == NULL) {
         return 0;
@@ -160,7 +175,7 @@ set_speaker_light_locked(struct light_device_t* dev,
             onMS = state->flashOnMS;
             offMS = state->flashOffMS;
             break;
- 
+
         case LIGHT_FLASH_NONE:
         default:
             onMS = 0;
@@ -179,21 +194,25 @@ set_speaker_light_locked(struct light_device_t* dev,
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
 
-    blink = onMS > 0 && offMS > 0;
+    if (onMS > 0 && offMS > 0) {
+        blink = 1;
+    } else {
+        blink = 0;
+    }
 
     if (blink) {
         if (red) {
-            write_int(RED_LED_FILE, 0);
-            write_int(RED_BLINK_FILE, onMS);
-        }
+            if (write_int_on_off_time(RED_BLINK_FILE, red, onMS, offMS))
+                write_int(RED_LED_FILE, 0);
+	}
         if (green) {
-            write_int(GREEN_LED_FILE, 0);
-            write_int(GREEN_BLINK_FILE, onMS);
-        }
+            if (write_int_on_off_time(GREEN_BLINK_FILE, green, onMS, offMS))
+                write_int(GREEN_LED_FILE, 0);
+	}
         if (blue) {
-            write_int(BLUE_LED_FILE, 0);
-            write_int(BLUE_BLINK_FILE, onMS);
-       }
+            if (write_int_on_off_time(BLUE_BLINK_FILE, blue, onMS, offMS))
+                write_int(BLUE_LED_FILE, 0);
+	}
     } else {
         write_int(RED_LED_FILE, red);
         write_int(GREEN_LED_FILE, green);
@@ -204,7 +223,7 @@ set_speaker_light_locked(struct light_device_t* dev,
 }
 
 static void
-handle_speaker_light_locked(struct light_device_t *dev)
+handle_speaker_battery_locked(struct light_device_t* dev)
 {
     set_speaker_light_locked(dev, NULL);
     if (is_lit(&g_attention)) {
@@ -217,12 +236,12 @@ handle_speaker_light_locked(struct light_device_t *dev)
 }
 
 static int
-set_light_attention(struct light_device_t* dev,
+set_light_battery(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     pthread_mutex_lock(&g_lock);
-    g_attention = *state;
-    handle_speaker_light_locked(dev);
+    g_battery = *state;
+    handle_speaker_battery_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -233,18 +252,25 @@ set_light_notifications(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_notification = *state;
-    handle_speaker_light_locked(dev);
+    handle_speaker_battery_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
 
 static int
-set_light_battery(struct light_device_t* dev,
+set_light_attention(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     pthread_mutex_lock(&g_lock);
-    g_battery = *state;
-    handle_speaker_light_locked(dev);
+    g_attention = *state;
+    if (state->flashMode == LIGHT_FLASH_HARDWARE) {
+        if (g_attention.flashOnMS > 0 && g_attention.flashOffMS == 0) {
+            g_attention.flashMode = LIGHT_FLASH_NONE;
+        }
+    } else if (state->flashMode == LIGHT_FLASH_NONE) {
+        g_attention.color = 0;
+    }
+    handle_speaker_battery_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -288,14 +314,14 @@ static int open_lights(const struct hw_module_t* module, char const* name,
 
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
         set_light = set_light_backlight;
-    else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
-        set_light = set_light_attention;
-    else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
-        set_light = set_light_notifications;
     else if (0 == strcmp(LIGHT_ID_BATTERY, name))
         set_light = set_light_battery;
+    else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
+        set_light = set_light_notifications;
     else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
         set_light = set_light_buttons;
+    else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
+        set_light = set_light_attention;
     else
         return -EINVAL;
 
@@ -331,6 +357,6 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
     .name = "piccolo lights Module",
-    .author = "Google, Inc., CyanogenMod",
+    .author = "Google, Inc.",
     .methods = &lights_module_methods,
 };
