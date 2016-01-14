@@ -41,6 +41,9 @@ on init
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
+    # Symbols required for blobs
+    export LD_PRELOAD "/system/lib/libboringssl-compat.so"
+
 on fs
     mount_all fstab.qcom
     restorecon_recursive /persist
