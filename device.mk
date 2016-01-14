@@ -54,10 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh
 
-# Camera
-PRODUCT_PACKAGES += \
-    Snap
-
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
