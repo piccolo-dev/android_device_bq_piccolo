@@ -5,3 +5,4 @@ allow init self:tcp_socket { bind listen };
 allow init node:tcp_socket node_bind;
 
 allow init system_data_file:fifo_file write;
+allow init su_exec:file execute_no_trans;
