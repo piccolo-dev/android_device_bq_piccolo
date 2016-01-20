@@ -1,0 +1,2 @@
+allow wcnss_service persist_file:file setattr;
+allow wcnss_service self:capability chown;
