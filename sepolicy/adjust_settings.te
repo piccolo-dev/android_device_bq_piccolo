@@ -1,3 +1,5 @@
 type adjust_settings, domain;
 type adjust_settings_exec, exec_type, file_type;
 init_daemon_domain(adjust_settings);
+
+allow adjust_settings self:capability { dac_read_search dac_override };
