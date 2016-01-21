@@ -139,7 +139,6 @@ COMMON_GLOBAL_CFLAGS += -DRECOVERY_FONT='"roboto_15x24.h"'
 
 # RIL
 TARGET_RIL_VARIANT := caf
-PROTOBUF_SUPPORTED := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
