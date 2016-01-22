@@ -2,3 +2,7 @@
 allow system_server touchpanel_sysfs:file rw_file_perms;
 allow system_server touchpanel_sysfs:dir { search };
 allow system_server vibeamp_sysfs:file rw_file_perms;
+
+# Sensors
+allow system_server sensors_data_file:dir r_dir_perms;
+allow system_server sensors_data_file:fifo_file rw_file_perms;

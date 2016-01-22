@@ -14,3 +14,7 @@
 
 # NFC
 /dev/bcm2079x                                 u:object_r:nfc_device:s0
+
+# Sensord
+/system/bin/sensord    u:object_r:sensors_exec:s0
+/data/misc/sensor(/.*)?    u:object_r:sensors_data_file:s0

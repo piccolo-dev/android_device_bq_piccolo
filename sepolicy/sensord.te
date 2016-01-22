@@ -1,0 +1,12 @@
+# Access to input devices
+allow sensors input_device:dir search;
+allow sensors input_device:chr_file open;
+allow sensors input_device:chr_file read;
+
+# Allow fowner to own files
+allow sensors self:capability { fowner };
+
+# Allow fifo file handling in /data/misc/sensor
+allow sensors sensors_data_file:fifo_file create_file_perms;
+
+
