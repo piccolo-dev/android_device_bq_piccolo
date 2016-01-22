@@ -163,6 +163,7 @@ on post-fs-data
     mkdir /data/misc/sensor 0777 system system
     chown system system /data/misc/sensor
     chmod 0777 /data/misc/sensor
+    restorecon_recursive /data/misc/sensor
 
     # Create folder for mm-qcamera-daemon
     mkdir /data/camera 0770 media camera
