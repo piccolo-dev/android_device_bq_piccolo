@@ -80,7 +80,6 @@ media.msm8929hw=0
 mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 media.aac_51_output_enabled=true
-mm.enable.qcom_parser=3183219
 media.stagefright.use-awesome=false
 vidc.enc.narrow.searchrange=1
 drm.service.enabled=1
