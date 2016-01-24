@@ -4,3 +4,5 @@ allow qti_init_shell qmuxd:unix_stream_socket connectto;
 allow qti_init_shell qmuxd_socket:dir { write add_name };
 allow qti_init_shell qmuxd_socket:dir search;
 allow qti_init_shell qmuxd_socket:sock_file { write create setattr };
+allow qti_init_shell sysfs:dir setattr;
+allow qti_init_shell touchpanel_sysfs:file { getattr setattr };
