@@ -228,6 +228,10 @@ PRODUCT_COPY_FILES+= \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
 
+# Touchscreen
+PRODUCT_PACKAGES += \
+    init.atmel_ts.sh
+
 # Wifi
 PRODUCT_PACKAGES += \
     hostapd_default.conf \

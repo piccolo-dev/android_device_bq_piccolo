@@ -184,8 +184,8 @@ on post-fs-data
     chown nfc nfc /data/nfc/param
     restorecon_recursive /data/nfc
 
-    chown root root /system/bin/init.atmel_ts.sh
-    chmod 777 /system/bin/init.atmel_ts.sh
+    chown root root /system/etc/init.atmel_ts.sh
+    chmod 777 /system/etc/init.atmel_ts.sh
 
     # Color calibration control
     chown system system /sys/devices/virtual/graphics/fb0/rgb
@@ -206,7 +206,7 @@ on post-fs-data
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed"
 
-service atmel_ts /system/bin/sh /system/bin/init.atmel_ts.sh
+service atmel_ts /system/bin/sh /system/etc/init.atmel_ts.sh
     class main
     user root
     oneshot
