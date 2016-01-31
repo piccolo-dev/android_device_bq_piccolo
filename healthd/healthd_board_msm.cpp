@@ -160,8 +160,6 @@ void healthd_board_mode_charger_battery_update(
                 set_tricolor_led(1, color);
                 old_color = color;
                 LOGV("soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
-        }
-    }
 }
 
 #define BACKLIGHT_ON_LEVEL    100
