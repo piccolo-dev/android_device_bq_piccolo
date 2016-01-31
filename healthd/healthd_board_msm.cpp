@@ -38,45 +38,9 @@
 #include <healthd.h>
 #include "minui/minui.h"
 
-#define ARRAY_SIZE(x)           (sizeof(x)/sizeof(x[0]))
-
-#define RED_LED_PATH            "/sys/class/leds/red/brightness"
-#define GREEN_LED_PATH          "/sys/class/leds/green/brightness"
-#define BLUE_LED_PATH           "/sys/class/leds/blue/brightness"
 #define BACKLIGHT_PATH          "/sys/class/leds/lcd-backlight/brightness"
 
 #define CHARGING_ENABLED_PATH   "/sys/class/power_supply/battery/charging_enabled"
-
-#define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
-#define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
-#define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
-
-enum {
-    RED_LED = 0x01 << 0,
-    GREEN_LED = 0x01 << 1,
-    BLUE_LED = 0x01 << 2,
-};
-
-struct led_ctl {
-    int color;
-    const char *path;
-};
-
-struct led_ctl leds[3] =
-    {{RED_LED, RED_LED_PATH},
-    {GREEN_LED, GREEN_LED_PATH},
-    {BLUE_LED, BLUE_LED_PATH}};
-
-struct soc_led_color_mapping {
-    int soc;
-    int color;
-};
-
-struct soc_led_color_mapping soc_leds[3] = {
-    {15, RED_LED},
-    {90, RED_LED | GREEN_LED},
-    {100, GREEN_LED},
-};
 
 static int write_file_int(char const* path, int value)
 {
@@ -92,34 +56,6 @@ static int write_file_int(char const* path, int value)
     }
 
     return rc > 0 ? 0 : -1;
-}
-
-static int set_tricolor_led(int on, int color)
-{
-    int fd, i;
-    char buffer[10];
-
-    for (i = 0; i < (int)ARRAY_SIZE(leds); i++) {
-        if ((color & leds[i].color) && (access(leds[i].path, R_OK | W_OK) == 0)) {
-            fd = open(leds[i].path, O_RDWR);
-            if (fd < 0) {
-                LOGE("Could not open red led node\n");
-                goto cleanup;
-            }
-            if (on)
-                snprintf(buffer, sizeof(int), "%d\n", 255);
-            else
-                snprintf(buffer, sizeof(int), "%d\n", 0);
-
-            if (write(fd, buffer, strlen(buffer)) < 0)
-                LOGE("Could not write to led node\n");
-cleanup:
-            if (fd >= 0)
-                close(fd);
-        }
-    }
-
-    return 0;
 }
 
 #define STR_LEN 8
