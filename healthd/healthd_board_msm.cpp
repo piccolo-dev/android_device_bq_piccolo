@@ -42,6 +42,10 @@
 
 #define CHARGING_ENABLED_PATH   "/sys/class/power_supply/battery/charging_enabled"
 
+#define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
+#define LOGW(x...) do { KLOG_WARNING("charger", x); } while (0)
+#define LOGV(x...) do { KLOG_DEBUG("charger", x); } while (0)
+
 static int write_file_int(char const* path, int value)
 {
     int fd;
@@ -78,25 +82,11 @@ void healthd_board_mode_charger_draw_battery(
 }
 
 void healthd_board_mode_charger_battery_update(
-                struct android::BatteryProperties *batt_prop)
+				struct android::BatteryProperties*)
 {
-    static int old_color = 0;
-    int i, color, soc, rc;
-    bool blink = false;
 
-    soc = batt_prop->batteryLevel;
-
-    for (i = 0; i < ((int)ARRAY_SIZE(soc_leds) - 1); i++) {
-        if (soc < soc_leds[i].soc)
-            break;
-    }
-    color = soc_leds[i].color;
-
-                set_tricolor_led(0, old_color);
-                set_tricolor_led(1, color);
-                old_color = color;
-                LOGV("soc = %d, set led color 0x%x\n", soc, soc_leds[i].color);
 }
+
 
 #define BACKLIGHT_ON_LEVEL    100
 #define BACKLIGHT_OFF_LEVEL    0
