@@ -92,6 +92,14 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu6/sched_mostly_idle_nr_run 3
     write /sys/devices/system/cpu/cpu7/sched_mostly_idle_nr_run 3
 
+    # Enable core control
+    insmod /system/lib/modules/core_ctl.ko
+    write /sys/devices/system/cpu/cpu0/core_ctl/min_cpus 2
+    write /sys/devices/system/cpu/cpu0/core_ctl/max_cpus 4
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 68
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres 40
+    write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 100
+
     # Enable low power modes
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
