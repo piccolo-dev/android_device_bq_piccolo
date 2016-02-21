@@ -66,7 +66,8 @@ PRODUCT_PACKAGES += \
 
 # Charger
 PRODUCT_PACKAGES += \
-    charger_res_images
+    charger_res_images \
+    libhealthd.msm8916
 
 # Connectivity
 PRODUCT_PACKAGES += \
@@ -115,9 +116,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/izat.conf:system/etc/izat.conf \
     $(LOCAL_PATH)/gps/etc/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/gps/etc/sap.conf:system/etc/sap.conf
-
-# healthd library expanded for mode charger
-PRODUCT_PACKAGES += libhealthd.msm
 
 # IRQ balance
 PRODUCT_COPY_FILES += \
