@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device name="Android">
     <item name="none">0</item>
-    <item name="screen.on">90.8</item>
-    <item name="screen.full">210.2</item>
-    <item name="bluetooth.active">51.5</item>
-    <item name="bluetooth.on">2.9</item>
-    <item name="wifi.on">1.1</item>
-    <item name="wifi.active">131</item>
-    <item name="wifi.scan">19.2</item>
+    <item name="screen.on">54</item>
+    <item name="screen.full">229</item>
+    <item name="bluetooth.active">133</item>
+    <item name="bluetooth.on">2.1</item>
+    <item name="wifi.on">1.23</item>
+    <item name="wifi.active">228</item>
+    <item name="wifi.scan">99</item>
     <item name="dsp.audio">46.1</item>
     <item name="dsp.video">93.2</item>
-    <item name="radio.active">156</item>
-    <item name="radio.scanning">4</item>
-    <item name="gps.on">41.6</item>
+    <item name="camera.avg">443</item>
+    <item name="camera.flashlight">430</item>
+    <item name="radio.active">131.6</item>
+    <item name="radio.scanning">242</item>
+    <item name="gps.on">42.1</item>
     <array name="radio.on">
         <value>18</value>
-        <value>3.8</value>
+        <value>4</value>
     </array>
     <array name="cpu.speeds">
         <value>200000</value>
@@ -26,19 +28,20 @@
         <value>960000</value>
         <value>1113600</value>
         <value>1344000</value>
-        <value>1497600</value>
+        <value>1459200</value>
     </array>
-    <item name="cpu.idle">4.3</item>
+    <item name="cpu.idle">3.9</item>
+    <item name="cpu.awake">15</item>
     <array name="cpu.active">
-        <value>151</value>
-        <value>169</value>
-        <value>177</value>
-        <value>195</value>
-        <value>259</value>
-        <value>307</value>
-        <value>337</value>
-        <value>362</value>
-        <value>406</value>
+        <value>46</value>
+        <value>95</value>
+        <value>102</value>
+        <value>144</value>
+        <value>176</value>
+        <value>199</value>
+        <value>314</value>
+        <value>379</value>
+        <value>403</value>
     </array>
     <item name="battery.capacity">3120</item>
     <array name="wifi.batchedscan">
