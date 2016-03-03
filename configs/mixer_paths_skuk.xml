@@ -733,6 +733,7 @@
 	-->
         <!--<ctl name="AIF1TX1 Input 1" value="IN2R" />	-->
 	<ctl name="AIF1TX1 Input 1" value="IN2L" />
+	<ctl name="AIF1TX2 Input 1" value="IN2L" />
 	<ctl name="IN2L Digital Volume" value="168" />
         <!--<ctl name="AIF1TX2 Input 1" value="IN2R" />	-->
 	
