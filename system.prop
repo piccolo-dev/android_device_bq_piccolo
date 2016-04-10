@@ -118,7 +118,7 @@ ro.sys.fw.trim_cache_percent=100
 ro.sys.fw.trim_enable_memory=1073741824
 
 # OTA
-cm.updater.uri=http://ota1.randomdroids.com/api
+cm.updater.uri=https://ota1.randomdroids.com/api
 
 # USB
 ro.sys.usb.default.config=diag,serial_smd,serial_tty,mass_storage,adb
